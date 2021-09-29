@@ -38,6 +38,7 @@ const Section = ({children, title}): Node => {
           },
         ]}>
         {title}
+        ahmed
       </Text>
       <Text
         style={[
