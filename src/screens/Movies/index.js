@@ -10,18 +10,18 @@ import {
   Keyboard,
 } from 'react-native';
 import {styles} from './styles';
+import {vScale} from '../../Helpers/Scale';
 import {launchImageLibrary} from 'react-native-image-picker';
-// import Axios from 'axios';
+import Axios from 'axios';
 
 export const Movies = ({navigation}) => {
-  //   const [data, setData] = useState([]);
+  const [apiData, setApiData] = useState([]);
   const [title, setTitle] = useState('');
   const [overView, setOverView] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [photo, setPhoto] = useState('');
   const [featuredData, setFeaturedData] = useState([]);
   const [date, setDate] = useState('');
-  const [open, setOpen] = useState(false);
 
   handleChoosePhoto = async () => {
     const options = {
@@ -34,20 +34,22 @@ export const Movies = ({navigation}) => {
       }
     });
   };
-  //   useEffect(() => {
-  //     getdata();
-  //   }, []);
-  //   const getdata = async () => {
-  //     try {
-  //       const response = await Axios.get(
-  //         'https://jsonplaceholder.typicode.com/posts',
-  //       );
-  //       setData(response.data);
-  //     } catch (error) {
-  //       console.log('error', error);
-  //     }
-  //   };
-  console.warn('open', open);
+    useEffect(() => {
+      getdata();
+    }, []);
+    const getdata = async () => {
+      try {
+        const response = await Axios.get(
+          'https://api.themoviedb.org/3/movie/550?api_key=648e0b19b2a2379ea2d23e49ceacda6e',
+        );
+        setApiData(response.apiData);
+        
+      } catch (error) {
+        console.log('error', error);
+      }
+      console.warn('title', apiData.id);
+    };
+    
   return (
     <View style={styles.mainSearch}>
       <Modal
@@ -65,7 +67,7 @@ export const Movies = ({navigation}) => {
               onPress={() => setModalVisible(false)}>
               <Image
                 source={require('../../images/close.png')}
-                style={{width: 10, height: 10}}
+                style={styles.closeicon}
               />
             </TouchableOpacity>
             <TextInput
@@ -83,15 +85,16 @@ export const Movies = ({navigation}) => {
             <TextInput
               style={styles.input}
               onChangeText={text => setDate(text)}
-              value={overView}
+              value={date}
               placeholder="Date"
             />
-            
-            <TouchableOpacity onPress={() => {handleChoosePhoto() 
-                Keyboard.dismiss()}}>
+
+            <TouchableOpacity
+              onPress={() => {
+                handleChoosePhoto();
+                Keyboard.dismiss();
+              }}>
               <Text>Choose Image</Text>
-              {/* {photo && ( */}
-              {/* )} */}
             </TouchableOpacity>
             <Image
               source={
@@ -99,7 +102,7 @@ export const Movies = ({navigation}) => {
                   ? {uri: photo}
                   : require('../../images/placeholder.png')
               }
-              style={{width: 100, height: 100}}
+              style={styles.placeholdermodal}
             />
             <TouchableOpacity
               onPress={() => {
@@ -129,23 +132,10 @@ export const Movies = ({navigation}) => {
         showsHorizontalScrollIndicator={false}
         data={featuredData}
         keyExtractor={(item, index) => index.toString()}
-        style={{height: featuredData.length ? 500 : 0}}
+        style={{height: featuredData.length ? vScale(500) : 0}}
         renderItem={({item, index}) => {
           return (
-            <View
-              style={{
-                // flex: 1,
-                backgroundColor: 'white',
-                borderRadius: 8,
-                shadowColor: '#171717',
-                shadowOffset: {width: -2, height: 4},
-                shadowOpacity: 0.2,
-                shadowRadius: 3,
-                margin: 10,
-                padding: 10,
-                height: 250,
-                width: 200,
-              }}>
+            <View style={styles.mymoviewlist}>
               <Image
                 source={
                   Boolean(item.photo)
@@ -171,21 +161,7 @@ export const Movies = ({navigation}) => {
         keyExtractor={(item, index) => index.toString()}
         renderItem={({item, index}) => {
           return (
-            <View
-              style={{
-                // flex: 1,
-                flexDirection: 'column',
-                backgroundColor: 'white',
-                borderRadius: 8,
-                shadowColor: '#171717',
-                shadowOffset: {width: -2, height: 4},
-                shadowOpacity: 0.2,
-                shadowRadius: 3,
-                margin: 5,
-                padding: 10,
-                height: 300,
-                width: 200,
-              }}>
+            <View style={styles.allMoviesList}>
               <Image source={{uri: item.image}} style={styles.movieImg} />
               <Text style={styles.moviewTitle}> {item.title}</Text>
               <Text style={styles.movieDate}>{item.date}</Text>

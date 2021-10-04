@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {scale, vScale, fontScale} from '../../Helpers/Scale';
 
 export const styles = StyleSheet.create({
   mainSearch: {
@@ -9,7 +10,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor:'#0000009c'
+    backgroundColor: '#0000009c',
   },
   modalView: {
     width: '70%',
@@ -29,7 +30,7 @@ export const styles = StyleSheet.create({
     elevation: 5,
   },
   MoviesHeader: {
-    fontSize: 16,
+    fontSize: fontScale(16),
     fontWeight: 'bold',
     padding: 10,
   },
@@ -37,14 +38,14 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  closemodal:{
+  closemodal: {
     backgroundColor: '#00b4e4',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 10,
     borderRadius: 10,
     position: 'absolute',
-    right: 1
+    right: 1,
   },
   addnew: {
     backgroundColor: '#00b4e4',
@@ -56,31 +57,64 @@ export const styles = StyleSheet.create({
   },
   movieImg: {
     width: '100%',
-    height: 150,
+    height: vScale(150),
     resizeMode: 'contain',
   },
   moviewTitle: {
-    fontSize: 16,
+    fontSize: fontScale(16),
     fontWeight: 'bold',
     color: '#00b4e4',
   },
   movieDate: {
-    fontSize: 14,
+    fontSize: fontScale(14),
     fontWeight: '500',
     color: '#ccc',
   },
   movieOverview: {
-    fontSize: 14,
+    fontSize: fontScale(14),
     fontWeight: '500',
   },
-  input:{
-    height: 40,
-    width:'100%',
+  input: {
+    height: vScale(40),
+    width: '100%',
     margin: 12,
     borderWidth: 1,
     borderRadius: 10,
     borderColor: '#ccc',
     padding: 10,
-
+  },
+  closeicon: {
+    width: scale(10),
+    height: vScale(10),
+  },
+  placeholdermodal: {
+    width: scale(100),
+    height: vScale(100),
+  },
+  mymoviewlist: {
+    backgroundColor: 'white',
+    borderRadius: 8,
+    shadowColor: '#171717',
+    shadowOffset: {width: -2, height: 4},
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    margin: 10,
+    padding: 10,
+    height: vScale(250),
+    width: scale(200),
+  },
+  allMoviesList: {
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    backgroundColor: 'white',
+    borderRadius: 8,
+    shadowColor: '#171717',
+    shadowOffset: {width: -2, height: 4},
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    margin: 5,
+    padding: 10,
+    height: vScale(300),
+    width: scale(175),
   },
 });
