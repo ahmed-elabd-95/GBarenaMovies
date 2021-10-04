@@ -47,7 +47,6 @@ export const Movies = ({navigation}) => {
       } catch (error) {
         console.log('error', error);
       }
-      console.warn('title', apiData.id);
     };
     
   return (
